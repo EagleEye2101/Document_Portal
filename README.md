@@ -1,44 +1,74 @@
+# Document Portal
+
 ## Project folder
-'''
-create project folder
-cd project folder
-Open Vscode and load this project folder
 
-'''
-## Conda virtual environment setup 
+Create the project folder and open it in Visual Studio Code:
 
-'''
-conda create -p env_name python=3.10 -y 
-'''
-'''
-conda activate path_of_env
-'''
-'''
-pip install -r requiements.txt
-'''
+```bash
+mkdir my-project
+cd my-project
+# Open in VS Code (requires `code` in PATH)
+code .
+```
+
+## Conda virtual environment setup
+
+Recommended: create and activate a named conda environment:
+
+```bash
+# Create a named environment
+conda create -n env_name python=3.10 -y
+
+# Activate the environment
+conda activate env_name
+
+# Install Python dependencies
+pip install -r requirements.txt
+```
+
+Alternative: create a path-based environment (prefix) inside the project:
+
+```bash
+conda create -p ./env python=3.10 -y
+conda activate ./env
+pip install -r requirements.txt
+```
+
+Notes:
+- Use `-n <name>` to create a named environment or `-p <path>` to create a prefix (path) environment.
+- If you use a prefix (`-p ./env`) then the activation command is `conda activate ./env`.
+- Make sure the file is named `requirements.txt` (fixed typo).
 
 ## Git project commands
-'''
-create .gitignore file
-'''
-'''
-add env to ignore
-'''
-'''
-run cmd from terminal 
-'''
-'''
- git init 
-'''
-'''
+
+Initialize a repository, add a sensible `.gitignore`, and push to a remote:
+
+```bash
+# Initialize (run once)
+git init
+
+# Example: ignore environment folder or manually add env/ to the file 
+echo "env/" >> .gitignore
+
+# Stage and commit
 git add .
-'''
-'''
-git commit -m "commit message"
-'''
-'''
-git push
-'''
-'''
-select publish and select folder with public/private option 
-'''
+git commit -m "Initial commit"
+
+# Add remote (replace with your remote URL) and push
+git remote add origin <REMOTE_URL>
+git push -u origin main
+```
+
+If you prefer the VS Code publish flow, use the Source Control view and click "Publish to GitHub" or similar and follow the prompts.
+
+## Troubleshooting
+
+- If `code .` isn't found, install the "Shell Command: Install 'code' command in PATH" from the VS Code Command Palette.
+- If `pip install -r requirements.txt` fails, ensure the correct conda env is activated and that `requirements.txt` exists in the project root.
+
+---
+
+If you'd like, I can also:
+- add a `.gitignore` with common entries, or
+- create a `requirements.txt` template, or
+- keep this README but add a short example of how to run the project.
