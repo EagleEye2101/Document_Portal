@@ -72,3 +72,8 @@ If you'd like, I can also:
 - add a `.gitignore` with common entries, or
 - create a `requirements.txt` template, or
 - keep this README but add a short example of how to run the project.
+
+## requirement for this project
+- LLM Models from groc(free)/openai(paid)/gemini(15 days free)/claude(paid)/huggingface(free)/oola(localo setup)
+- Embedding models from openai/HF/gemini
+- vecortdatabase from inmemory/ondisk/cloudbase
