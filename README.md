@@ -77,3 +77,6 @@ If you'd like, I can also:
 - LLM Models from groc(free)/openai(paid)/gemini(15 days free)/claude(paid)/huggingface(free)/oola(localo setup)
 - Embedding models from openai/HF/gemini
 - vecortdatabase from inmemory/ondisk/cloudbase
+
+## run below command to initiate setup.py
+pip install -e .
