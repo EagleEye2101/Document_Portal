@@ -80,3 +80,10 @@ If you'd like, I can also:
 
 ## run below command to initiate setup.py
 pip install -e .
+
+## Groq api link -to create api key
+https://console.groq.com/keys
+
+## Google Ai studion to create api key 
+https://aistudio.google.com/
+
