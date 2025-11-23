@@ -8,6 +8,9 @@ langchain
 pypdf
 langchain-text-splitters
 faiss-cpu
+structlog
+PyMuPDF
+
 
 
 -e .
