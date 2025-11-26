@@ -5,11 +5,11 @@ from datetime import datetime
 class CustomLogger:
     def __init__(self,log_dir="logs"):
         # ensure logs directory exists
-        self.log.dir = os.path.join(os.getcwd(),log_dir)
-        os.makedirs(self.log_dir, exist_ok=True)
+        self.logs_dir = os.path.join(os.getcwd(),log_dir)
+        os.makedirs(self.logs_dir, exist_ok=True)
         # create log filename with timestamp
         log_filename = f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-        log_filepath = os.path.join(self.log_dir, log_filename) 
+        log_filepath = os.path.join(self.logs_dir, log_filename) 
 
         # configure logging settings
         logging.basicConfig(    
@@ -17,8 +17,6 @@ class CustomLogger:
             level=logging.INFO,
             format="[%(asctime)s] %(levelname)s: %(name)s (line:%(lineno)d)- %(message)s",  
         )
-        
-
     def get_logger(self, name=__file__):
         return logging.getLogger(os.path.basename(name))
 
