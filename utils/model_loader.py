@@ -101,6 +101,12 @@ if __name__ == "__main__":
     # Test embedding model loading
     embeddings=loader.load_embeddings()
     log.info("Embedding model loaded successfully.", embedding_model=str(embeddings))
+    # Test the embedding model with a sample text
+    result = embeddings.embed_query("Hello, how are you?")
+    print(f"Embedding result: {result}")
+    log.info("embedding invocation result", result=result)
+    
+
     # Test LLM model loading based on yaml config
     llm=loader.load_llm()
     log.info("LLM model loaded successfully.", llm_model=str(llm))
