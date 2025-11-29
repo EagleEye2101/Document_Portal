@@ -25,9 +25,20 @@ class DocumentHandler:
             raise DocumentPortalException("Error initializing DocumentHandler", e) from e
 
 
-    def save_pdf(self):
+    def save_pdf(self,uploaded_file):
         try:
-            pass
+            filename = os.path.basename(uploaded_file.name)
+            if not filename.lower().endswith('.pdf'):
+                raise DocumentPortalException("Uploaded file is not a PDF")
+            
+            save_path = os.path.join(self.session_path, filename)
+
+            with open(save_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            self.log.info("PDF saved successfully", file=filename, save_path=save_path, session_id=self.session_id)
+            return save_path    
+        
         except Exception as e:
             self.log.error("Error saving PDF", error=str(e))
             raise DocumentPortalException("Error saving PDF", e) from e
@@ -40,8 +51,22 @@ class DocumentHandler:
         
 #test the code 
 if __name__ == "__main__":
+    from pathlib import Path
+    from io import BytesIO
     handler = DocumentHandler()
-   # handler.save_pdf()
-   # handler.read_pdf()
-    print(f"Session ID: {handler.session_id}")
-    print(f"Session Path: {handler.session_path}")
+    pdf_path=r"/Users/kiran_mac/Documents/AI_Training/GenAI_KrishNaik/Document_Portal/data/document_analysis/NIPS-2017-attention-is-all-you-need-Paper.pdf"
+    class DummyFile:
+        def __init__(self,file_path):
+            self.name=Path(file_path).name
+            self._file_path = file_path
+        def getbuffer(self):
+            return open(self._file_path,"rb").read()
+    
+    dummy_pdf = DummyFile(pdf_path)
+    handler= DocumentHandler(session_id="test_session")
+
+    try:
+        saved_path=handler.save_pdf(dummy_pdf)
+        print(f"PDF saved at: {saved_path}")
+    except Exception as e:
+        print(f"Error during testing: {e}")
