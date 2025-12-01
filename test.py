@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
-from src.document_analyser.data_ingestion import PDFHandler
+from src.document_analyser.data_ingestion import DocumentHandler 
 from src.document_analyser.data_analysis import DocumentAnalyser
 
 #Path to the PDF you want to test 
-PDF_PATH=r"/Users/kiran_mac/Documents/AI_Training/GenAI_KrishNaik/Document_Portal/data/document_analysis/NIPS-2017-attention-is-all-you-need-Paper.pdf"
+PDF_PATH=r"/Users/kiran_mac/Documents/AI_Training/GenAI_KrishNaik/Document_Portal/data/document_analysis/sample.pdf"
 
 #Dummy file wrapper to simulate uploaded file(Stramlit style)
 
@@ -22,7 +22,7 @@ def main():
         print("----- STEP 1: Data Ingestion - Starting PDF ingestion...-----")
         dummy_pdf = DummyFile(PDF_PATH)
 
-        handler=PDFHandler(session_id="test_ingestion_analysis")
+        handler=DocumentHandler(session_id="test_ingestion_analysis")
         saved_path=handler.save_pdf(dummy_pdf)
         print(f"PDF saved at: {saved_path}")
 
@@ -31,7 +31,7 @@ def main():
 
         # ---------- STEP 2 : Data Analysis ----------
         print("----- STEP 2: Data Analysis - Starting metadata analysis...-----")
-        analyzer-= DocumentAnalyser()
+        analyzer= DocumentAnalyser()
         analysis_result = analyzer.analyze_document(test_content)
 
         #---------- STEP 3 : Display Results ----------
