@@ -5,7 +5,7 @@ __pychache__
 logs/
 *.pyc
 
-
+build
 .env
 .DS_Store
 document_portal.egg-info
