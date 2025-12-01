@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, RootModel
 from typing import List, Optional,Dict,Any,Union
-
 #pydantic model added for validation and structure
 
 class Metadata(BaseModel):
@@ -13,3 +12,8 @@ class Metadata(BaseModel):
     Language:str
     PageCount:Union[int,str]
     SentimentTone:str
+class ChangeFormat(BaseModel):
+    Page:str
+    changes:str
+class SummaryResponse(RootModel[list[ChangeFormat]]):
+    pass

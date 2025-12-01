@@ -21,7 +21,7 @@ except Exception:
     except Exception:
         JsonOutputParser = None
 
-from prompt.prompt_library import *
+from prompt.prompt_library import PROMPT_REGISTRY
 
 class DocumentAnalyser:
     """ Analyzes documents using a pre-trained model. Automatially logs all actions and supports session -based organization."""
@@ -46,7 +46,8 @@ class DocumentAnalyser:
             else:
                 self.fixing_parser = None
 
-            self.prompt=prompt
+            self.prompt=PROMPT_REGISTRY["document_analysis"]
+
             self.log.info("DocumentAnalyser initialized successfully.")
 
         except Exception as e:
