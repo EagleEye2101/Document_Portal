@@ -20,10 +20,27 @@ class DocumentIngestion:
             self.log.error("Error deleting existing files", error=str(e))
             raise DocumentPortalException("Error deleting existing files", sys)
         
-    def save_uploaded_files(self):
+    def save_uploaded_files(self,reference_file,actual_file):
         """ Save newly uploaded files to the storage directory. """
         try:
-            pass
+            self.delete_existing_files
+            self.log.info("Uploaded files saved successfully.")
+
+            ref_path=self.base_dir / reference_file.name
+            act_path=self.base_dir / actual_file.name
+
+            if not reference_file.name.endswith(".pdf") or not actual_file.name.endswith(".pdf"):
+                self.log.error("Unsupported file format. Only PDF files are supported.", reference_file=reference_file.name, actual_file=actual_file.name)
+                raise ValueError("Unsupported file format. Only PDF files are supported.")
+            
+            with open(ref_path,'wb') as f:
+                f.write(reference_file.getbuffer())
+
+            with open(act_path,'wb') as f:
+                f.write(actual_file.getbuffer())
+
+            self.log.info("Uploaded files saved successfully", reference=str(ref_path),actual=str(act_path))
+            return ref_path, act_path
         except Exception as e:
             self.log.error("Error saving uploaded files", error=str(e))
             raise DocumentPortalException("Error saving uploaded files", sys)
