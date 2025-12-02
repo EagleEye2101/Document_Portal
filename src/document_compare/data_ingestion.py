@@ -1,5 +1,5 @@
 import sys
-from pathlib import path
+from pathlib import Path
 import fitz
 from logger.custom_logger import CustomLogger
 from exception.custom_exception import DocumentPortalException
@@ -8,7 +8,7 @@ from exception.custom_exception import DocumentPortalException
 class DocumentIngestion:
     def __init__(self,base_dir:str="data/document_compare"):
         self.log= CustomLogger().get_logger(__name__)
-        self.base_dir=Path(base_dir)
+        self.base_dir= Path(base_dir)
         self.base_dir.mkdir(parents=True,exist_ok=True)
         self.log.info("DocumentIngestion initialized", base_directory=str(self.base_dir))
 
@@ -28,7 +28,7 @@ class DocumentIngestion:
     def save_uploaded_files(self,reference_file,actual_file):
         """ Save newly uploaded files to the storage directory. """
         try:
-            self.delete_existing_files
+            self.delete_existing_files()
             self.log.info("Uploaded files saved successfully.")
 
             ref_path=self.base_dir / reference_file.name
@@ -50,7 +50,7 @@ class DocumentIngestion:
             self.log.error("Error saving uploaded files", error=str(e))
             raise DocumentPortalException("Error saving uploaded files", sys)
         
-    def read_pdf(self,pdf_path: path) -> str:
+    def read_pdf(self,pdf_path: Path) -> str:
         """ Read and extract text from PDF files. """
         try:
             with fitz.open(pdf_path) as doc:
