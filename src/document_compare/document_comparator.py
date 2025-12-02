@@ -37,6 +37,7 @@ class DocumentComparatorLLM:
         except Exception as e:
             self.log.error("Error comparing documents", error=str(e))
             raise DocumentPortalException("Error comparing documents", sys) 
+        
     def _format_response(self,response_parsed: dict) -> pd.DataFrame:
 
         """ Format the LLM response into structured data. """
