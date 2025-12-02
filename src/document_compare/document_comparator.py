@@ -21,10 +21,13 @@ class DocumentComparatorLLM:
         self.prompt= PROMPT_REGISTRY["document_comparison"]
         self.chain=self.prompt|self.llm|self.parser|self.fixing_parser
         self.log.info("DocumentComparatorLLM initialized successfully.")
-    def compare_documents(self)
+    def compare_documents(self,combined_docs: str)-> pd.DataFrame:
         """ Compare two documents and return the differences. """
         try:
-            pass
+            input = {
+                "combined_docs": combined_docs,
+                "format_instructions": self.parser.get_format_instructions() 
+            }
         except Exception as e:
             self.log.error("Error comparing documents", error=str(e))
             raise DocumentPortalException("Error comparing documents", sys) 
