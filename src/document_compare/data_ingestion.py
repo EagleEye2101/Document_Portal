@@ -15,7 +15,12 @@ class DocumentIngestion:
     def delete_existing_files(self):
         """ Delete existing uploaded files from the storage directory. """
         try:
-            pass
+            if self.base_dir.exists() and self.base_dir.is_dir():
+                for file in self.base_dir.iterdir():
+                    if file.is_file():
+                        file.unlink()
+                        self.log.info("Deleted file", path=str(file))
+                self.log.info("Existing files deleted successfully from storage directory.", directory=str(self.base_dir))
         except Exception as e:
             self.log.error("Error deleting existing files", error=str(e))
             raise DocumentPortalException("Error deleting existing files", sys)
