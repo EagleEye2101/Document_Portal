@@ -3,6 +3,7 @@ env
 venv
 __pychache__
 logs/
+fiass_index/
 *.pyc
 
 build

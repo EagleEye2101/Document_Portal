@@ -52,9 +52,15 @@ class ConversationalRAG:
         except Exception as e:
             self.log.error("Error loading LLM via ModelLoader",error=str(e))
             raise DocumentPortalException("Failed to load LLM from ModelLoader",sys)
-    def _get_session_histroy(self,session_id):
+    def _get_session_histroy(self,session_id:str)->BaseChatMessageHistory:
         try:
-            return ChatMessageHistory()
+            if "store" not in st.session_state:
+                st.session_state.store={}
+            if session_id not in st.session_state.store:
+                st.session_state.store[session_id]=ChatMessageHistory()
+                self.log.info("New Chat session history created",session_id=session_id)
+
+            return st.session_state.store[session_id]
         except Exception as e:
             self.log.error("Failed to access session history",session_id=session_id, error=str(e))
             raise DocumentPortalException("Failed to retrieve session history",sys)
