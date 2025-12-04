@@ -54,8 +54,8 @@ class ModelLoader:
         llm_block = self.config["llm"]
         log.info("Loading LLM model...")
         # Choose from Default provider or ENV variable
-        provider_key = os.getenv("LLM_PROVIDER","google").lower() # Default to google if not set
-        #provider_key = os.getenv("LLM_PROVIDER","groq").lower() # Default to google if not set
+        #provider_key = os.getenv("LLM_PROVIDER","google").lower() # Default to google if not set
+        provider_key = os.getenv("LLM_PROVIDER","groq").lower() # Default to google if not set
 
         if provider_key not in llm_block:
             log.error("LLM provider not found in config or configured", provider_key=provider_key)
