@@ -52,7 +52,7 @@ class ModelLoader:
         """ Load and return the LLM model based on configuration."""
         """ Load LLM dynamicallu based on config """
         llm_block = self.config["llm"]
-        log.info("Lo ading LLM model...")
+        log.info("Loading LLM model...")
         # Choose from Default provider or ENV variable
         provider_key = os.getenv("LLM_PROVIDER","google").lower() # Default to google if not set
         #provider_key = os.getenv("LLM_PROVIDER","groq").lower() # Default to google if not set

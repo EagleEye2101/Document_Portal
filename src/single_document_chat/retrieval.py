@@ -20,7 +20,7 @@ class ConversationalRAG:
             self.log=CustomLogger().get_logger(__name__)
             self.session_id=session_id
             self.retriever=retriever
-            self.llm=self._load_llm
+            self.llm=self._load_llm()
             self.contexualize_prompt=PROMPT_REGISTRY[PromptType.CONTEXTUALIZE_QUESTION.value]
             self.qa_prompt=PROMPT_REGISTRY[PromptType.CONTEXT_QA.value]
             self.history_aware_retriever=create_history_aware_retriever(
@@ -54,7 +54,7 @@ class ConversationalRAG:
             raise DocumentPortalException("Failed to load LLM from ModelLoader",sys)
     def _get_session_histroy(self,session_id):
         try:
-            pass
+            return ChatMessageHistory()
         except Exception as e:
             self.log.error("Failed to access session history",session_id=session_id, error=str(e))
             raise DocumentPortalException("Failed to retrieve session history",sys)
@@ -73,7 +73,7 @@ class ConversationalRAG:
              self.log.error("Failed to load retriever from FIASS",error=str(e))
              raise DocumentPortalException("Error loading retriever from FIASS",sys)
     
-    def invoke(self,user_input:str)->str:
+    def invoke(self,user_input:str) -> str:
         try:
             response=self.chain.invoke(
                 {"input":user_input},
