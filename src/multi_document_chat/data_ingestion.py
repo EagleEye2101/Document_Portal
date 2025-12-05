@@ -28,6 +28,7 @@ class DocumentIngestor:
             self.session_temp_dir.mkdir(parents=True,exist_ok=True)
 
             self.model_loader=ModelLoader()
+            
             self.log.info(
                 "DocumentIngestor initialized",
                 temp_base=str(self.temp_dir),
