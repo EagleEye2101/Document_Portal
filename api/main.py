@@ -157,6 +157,6 @@ async def chat_query(
         raise HTTPException(status_code=500, detail=f"Query failed: {e}")
 
 # command for executing the fast api : cmd to api folder where you have this main.py file and run below command 
-# uvicord - application server interface
+# uvicorn is a  application server interface
 # uvicorn api.main:app --port 8080 --reload    
 # uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload
