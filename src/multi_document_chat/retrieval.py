@@ -1,6 +1,8 @@
 import sys
 import os
 from operator import itemgetter
+from typing import List,Optional
+from langchain_core.messages import BaseMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
@@ -54,9 +56,26 @@ class ConversationalRAG:
             self.log.error("Failed to intialize Load_Retriever_from_FAISS",error=str(e))
             raise DocumentPortalException("Initialization error in Load_Retriever_from_FAISS",sys)
 
-    def invoke(self):
+    def invoke(self,user_input:str,chat_history:Optional[List[BaseMessage]]=None)->str:
+        """
+        Docstring for invoke
+        Args:
+            user_input(str) : _description
+            chat_history (Optional[List[BaseMessage]],optional): _description_. Defaults to None
+        """
         try:
-            pass
+            chat_history=chat_history or []
+            payload={"input":user_input,"chat_history":chat_history}
+            answer=self.chain.invoke(payload)
+            if not answer:
+                self.log.warning("No answer generated ",user_input=user_input,session_id=self.session_id)
+                return "no Answer generated."
+            self.log.info("Chain invoked successfully",
+                          session_id=self.session_id,
+                          user_input=user_input,
+                          answer_preview=answer[:150],
+                          ) 
+            return answer
         except Exception as e:
             self.log.error("Failed to invoke ConversationalRAG",error=str(e))
             raise DocumentPortalException("Initialization error in invoke ConversationalRAG ",sys)
