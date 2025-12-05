@@ -6,7 +6,8 @@ embedding_model:
   #model_name: "models/text-embedding-004"
   #model_name: "models/embedding-001"
   model_name: "models/gemini-embedding-001"
-
+  #model_name: "models/multilingual-e5-large"
+  
 retriever:
   top_k: 10
 
