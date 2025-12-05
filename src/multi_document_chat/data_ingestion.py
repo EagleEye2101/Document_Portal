@@ -1,0 +1,88 @@
+import uuid
+from pathlib import Path
+import sys
+from datetime import datetime,timezone
+from langchain_community.document_loaders import PyPDFLoader,Docx2txtLoader,TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from logger.custom_logger import CustomLogger
+from exception.custom_exception import DocumentPortalException
+from utils.model_loader import ModelLoader
+
+class DocumentIngestor:
+    SUPPRORTED_EXTENTION={'.pdf','.docx','.txt','.md'}
+    def __init__(self,temp_dir:str="data/multi_document_chat",faiss_dir: str ="faiss_index",session_id:str| None=None):
+        try:
+            self.log=CustomLogger().get_logger(__name__)
+            #base directory
+            self.temp_dir=Path(temp_dir)
+            self.faiss_dir=Path(faiss_dir)
+            self.temp_dir.mkdir(parents=True,exist_ok=True)
+            self.faiss_dir.mkdir(parents=True,exist_ok=True)
+
+            # Sessionized paths
+            self.session_id=session_id or f"session_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
+            self.session_temp_dir=self.temp_dir/self.session_id
+            self.session_faiss_dir=self.faiss_dir/self.session_id
+            self.session_faiss_dir.mkdir(parents=True,exist_ok=True)
+            self.session_temp_dir.mkdir(parents=True,exist_ok=True)
+
+            self.model_loader=ModelLoader()
+            self.log.info(
+                "DocumentIngestor initialized",
+                temp_base=str(self.temp_dir),
+                faiss_base=str(self.faiss_dir),
+                session_id=self.session_id,
+                temp_path=str(self.session_temp_dir),
+                faiss_path=str(self.session_faiss_dir),
+            )
+        except Exception as e:
+            self.log.info("Failed to initialize DocumentIngestor",error=str(e))
+            raise DocumentPortalException("Initialization error in DocumentIngestor",sys)
+
+    def ingest_files(self,uploaded_files):
+        try:
+            documents=[]
+            for uploaded_file in uploaded_files:
+                ext=Path(uploaded_file.name).suffix.lower()
+                if ext not in self.SUPPRORTED_EXTENTION:
+                    self.log.warning("Unsupported filed skipped",filename=uploaded_file.name)
+                    continue
+                unique_filename=f"{uuid.uuid4().hex[:8]}{ext}"
+                temp_path=self.session_temp_dir/unique_filename
+
+                with open(temp_path,"wb") as f:
+                    f.write(uploaded_file.read())
+                
+                self.log.info("Files saved ffor ingestion",filename=uploaded_file.name,saved_as=str(temp_path),session_id=self.session_id)
+
+                if ext==".pdf":
+                    loader=PyPDFLoader(str(temp_path))
+                elif ext==".docx":
+                    loader=Docx2txtLoader(str(temp_path))
+                elif ext==".txt":
+                    loader=TextLoader(str(temp_path))
+                elif ext==".md":
+                    loader=TextLoader(str(temp_path))
+                else:
+                    self.log.warning("Unsupported file type encountered",filename=uploaded_file.name)
+                    continue
+
+                docs=loader.load()
+                documents.extend(docs)
+                if not documents:
+                    raise DocumentPortalException("No valid document loaded",sys)
+
+
+
+        except Exception as e:
+            self.log.info("Failed to ingest files",error=str(e))
+            raise DocumentPortalException("Initialization error in DocumentIngestor",sys)
+         
+    def __create_retriever(self,documents):
+        try:
+            pass
+        except Exception as e:
+            self.log.info("Failed to create retriever",error=str(e))
+            raise DocumentPortalException("Error in create retriever ",sys)
+         
