@@ -13,7 +13,7 @@ from src.document_ingestion.data_ingestion import (
     DocumentComparator,
     ChatIngestor,
 )
-from src.document_analyzer.data_analysis import DocumentAnalyser
+from src.document_analyzer.data_analysis import DocumentAnalyzer
 from src.document_compare.document_comparator import DocumentComparatorLLM
 from src.document_chat.retrieval import ConversationalRAG
 from utils.document_ops import FastAPIFileAdapter,read_pdf_via_handler
@@ -57,7 +57,7 @@ async def analyze_document(file: UploadFile = File(...)) -> Any:
         dh = DocHandler()
         saved_path = dh.save_pdf(FastAPIFileAdapter(file))
         text = read_pdf_via_handler(dh, saved_path)
-        analyzer = DocumentAnalyser()
+        analyzer = DocumentAnalyzer()
         result = analyzer.analyze_document(text)
         log.info("Document analysis complete.")
         return JSONResponse(content=result)

@@ -144,8 +144,8 @@
 ## Testing multi document chat 
 import sys
 from pathlib import Path
-from src.multi_document_chat.data_ingestion import DocumentIngestor
-from src.multi_document_chat.retrieval import ConversationalRAG
+from archive.src.multi_document_chat.data_ingestion import DocumentIngestor
+from archive.src.multi_document_chat.retrieval import ConversationalRAG
 def test_document_ingestion_and_rag():
     try:
         test_files=[
