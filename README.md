@@ -87,3 +87,8 @@ https://console.groq.com/keys
 ## Google Ai studion to create api key 
 https://aistudio.google.com/
 
+## to create docker image , create docker file and docker ignore filr 
+docker build -t document-portal-system .
+
+## to run and publish
+docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
