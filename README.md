@@ -93,3 +93,41 @@ docker build -t document-portal-system .
 ## to run and publish docker image to docker container 
 docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 
+# make sure to keep docker desktop open and engine should be running 
+
+# next step : CICD 
+# login to AWS console and search and select ECR
+# create -> https://us-east-2.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-2
+# create with name documentportalliveclass
+# all setting are default , select ingage scanning - > Scan on push to on 
+# copy repository name and URI to notepad 
+
+# Create IAM User on aws console search IAM 
+
+# create users -> select user from lef side and click next 
+# select attach policies radio 
+# ![alt text](image.png)
+# select these permissions: AmazonEC2ContainrRegistoryFullAccess, AmazonECS_fullaccess,AmazonS3Fullaccess,AmazonSSMreadonlyaccess,Cloudwatchlogsfullaccess,secretsmanagerreadwrite
+# click create and verify permissions 
+# click on user name and select security credential 
+# copy arn, then go to access key section and click on create access key 
+# select command line interface , and select checck box for cconfirmation. Click on create > next 
+# get access key and secrete , note down it.
+# Goto ECR > select name created > from left side check Repository > Images  = nothing as of now 
+
+## Github 
+# go to settings > secrets and variables > actions 
+# click new repository secrets 
+# add AWS_ACCESS_KEY_ID in name and value = your access key 
+# Add another AWS_SECRET_ACCESS_KEY and its value 
+
+# now goto git hub repo > .github>workflow> CI.yaml file check names under 'check out repo' and verify names for aws_access key and secret variable matches 
+
+# do the same under section Configure aws credenttials as well 
+
+# push any changes to githib and verify youur aws ECR has a image by selecting name of ECR and under images 
+
+
+
+
+
