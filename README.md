@@ -157,6 +157,11 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 # paste it on AWS ECS - Task definition 
 # click on create
 # next click on cluster and create service , make sure service name should be same as aws.yaml file ECS_SERVICE: document-portal-service1
+# now commit changes and push it to git , then check guthub> action for deployment progress
+# application should be deployed 
+
+## AWS for debugging , add incline policy for IAM user created from /Users/kiran_mac/Documents/Sunny_document_portal/incline_policy.json
+
 
 
 
