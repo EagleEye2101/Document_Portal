@@ -162,6 +162,7 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 
 ## AWS for debugging , add incline policy for IAM user created from /Users/kiran_mac/Documents/Sunny_document_portal/incline_policy.json
 
+
 # if you still dont see public ip on ECS then go to EC2>Security Groups > click on security group >  edit inbound rules > click on add rule 
 # Add type as custom TCP , port range as 8080, source as custom, next text box as 0.0.0.0/0 select , description as allow public access to app 
 # click on save rule 
