@@ -156,7 +156,7 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 # now copy your task-definition from .github/workflow/task-definition.json 
 # paste it on AWS ECS - Task definition 
 # click on create
- 
+# next click on cluster and create service , make sure service name should be same as aws.yaml file ECS_SERVICE: document-portal-service1
 
 
 
