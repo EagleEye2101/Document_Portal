@@ -87,6 +87,11 @@ https://console.groq.com/keys
 ## Google Ai studion to create api key 
 https://aistudio.google.com/
 
+# command for executing the fast api main.py from app folder : cmd to api folder where you have this main.py file and run below command 
+# uvicorn is a  application server interface
+# uvicorn api.main:app --port 8080 --reload    
+# uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload
+
 ## to create docker image , create docker file and docker ignore filr 
 docker build -t document-portal-system .
 
@@ -96,6 +101,7 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 # make sure to keep docker desktop open and engine should be running 
 
 # next step : CICD 
+
 # login to AWS console and search and select ECR
 # create -> https://us-east-2.console.aws.amazon.com/ecr/private-registry/repositories?region=us-east-2
 # create with name documentportalliveclass
@@ -126,6 +132,32 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 # do the same under section Configure aws credenttials as well 
 
 # push any changes to githib and verify youur aws ECR has a image by selecting name of ECR and under images 
+
+# now go to Github > actions and it should trigger test and it should deploy image check on actions and Buid and push docker image task and check on AWS ECR 
+
+# On aws ECR - Image is created you can verify 
+
+# on github actions you will see deploy to ECS fargate deploy failed 
+
+
+## AWS config for secrets manager 
+# create new secret , add name and add 2 keys for groq_api_key and google_api_key
+# when you reenter on secrete page and click on name of secrete > click on reveal secret value to see all variable created 
+# make sure to note arn name and update it in task_definition.json under .github/workflow
+
+## AWS config for ECS
+# open ECS and select Cluster from left side to create cluster 
+# provide cluster name as per aws.yaml file from .github/workflow/aws.yaml
+# selct infrqastructure as AWS fargate
+# click create and ECS cluster has been created.
+
+# now click on Task definition from ECS page -left pane 
+# from right top side click on create new task definition -> from json 
+# now copy your task-definition from .github/workflow/task-definition.json 
+# paste it on AWS ECS - Task definition 
+# click on create
+ 
+
 
 
 
