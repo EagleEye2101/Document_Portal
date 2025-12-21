@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../Sunny_document_portal"
+		},
+		{
+			"name": "ecomm-prod-assistant",
+			"path": "../../ecomm-prod-assistant"
+		},
+		{
+			"path": "../../Sunny_ecomm-prod-assistant"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Document_Portal"
+	}
+}

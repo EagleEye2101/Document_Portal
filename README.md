@@ -162,11 +162,14 @@ docker run -d -p 8093:8080 --name my-doc-portal document-portal-system
 
 ## AWS for debugging , add incline policy for IAM user created from /Users/kiran_mac/Documents/Sunny_document_portal/incline_policy.json
 
+# select user > roles > create role > AWS service radio button > select Elastic Container Servise Task click next
+# search for EcsTaskExecutionRolePolicy select > next > and then add name ecsTaskExecutionRole> create role
+
+#  ecsTaskExecutionRole (should be create automatically create if not available ) click on it and make sure it has amazon ECSTaskExecutionRole policy associated withi this role , if not present attach manually 
+# ecsTaskExecutionRole > should have 3 roles associated with it , 1. AllowECSLogs,AllowSecreteAccess, AmazonECSTaskExecutionRolePolicy
 
 # if you still dont see public ip on ECS then go to EC2>Security Groups > click on security group >  edit inbound rules > click on add rule 
-# Add type as custom TCP , port range as 8080, source as custom, next text box as 0.0.0.0/0 select , description as allow public access to app 
+# Add type as custom TCP , port range as 8080, source as custom or anywhere ip4, next text box as 0.0.0.0/0 select , description as allow public access to app 
 # click on save rule 
-
-
 
 
