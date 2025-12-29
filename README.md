@@ -1,5 +1,5 @@
 # Document Portal
-
+# Tech stack : Docker , UI , API , Github actions , AWS , ECS , IAM , vector db , LLM langchain 
 ## Project folder
 
 Create the project folder and open it in Visual Studio Code:
